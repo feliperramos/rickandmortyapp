@@ -1,4 +1,10 @@
 export type RootStackList = {
   Home: undefined;
-  CharacterScreen: undefined;
+  SearchScreen: {
+    screen: string;
+  };
 };
+
+export type SearchTerms = {
+  search: string;
+}

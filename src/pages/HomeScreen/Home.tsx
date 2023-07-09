@@ -11,7 +11,8 @@ type HomeScreenProps = StackNavigationProp<RootStackList, "Home">;
 function Home() {
   const { navigate } = useNavigation<HomeScreenProps>();
 
-  const goToCharacterScreen = () => navigate("CharacterScreen");
+  const goToCharacterScreen = () => navigate("SearchScreen", { screen: 'character' });
+  const goToEpisodeScreen = () => navigate("SearchScreen", { screen: 'episode' });
 
   return (
     <Container>
@@ -21,7 +22,7 @@ function Home() {
         <Button onPress={goToCharacterScreen}>
           <Text>Personagens</Text>
         </Button>
-        <Button>
+        <Button onPress={goToEpisodeScreen}>
           <Text>Episódios</Text>
         </Button>
       </ButtonWrapper>
