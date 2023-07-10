@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, FlatList, ListRenderItem } from 'react-native';
 import { useQuery } from "@apollo/client";
+import { ActivityIndicator, FlatList, Image, ListRenderItem } from 'react-native';
+
 import type { SearchTerms } from '../types';
 import type { Character } from '../../types/Character';
 import type { Episode } from '../../types/Episode';
 
-import { Container, SearchInput, Text } from './SearchScreen.styles'
+import { Container, SearchInput, Text, LoadingWrapp, TextWait, ImageWait, ImageLoading } from './SearchScreen.styles';
 import { SearchItem } from '../../components';
 
-import { GET_CHARACTERS } from "../../graphql/characters";
 import { getScreenName } from '../../utils/getScreenName';
+import { GET_CHARACTERS } from "../../graphql/characters";
 import { GET_EPISODES } from '../../graphql/episodes';
+
+import LoadingRick from '../../../public/assets/images/loading_rick.gif';
+import WaitRick from '../../../public/assets/images/wait_rick_and_Morty.png';
 
 interface SearchScreenProps {
   route: {
@@ -55,8 +59,8 @@ function SearchScreen({ route }: SearchScreenProps) {
   }
   // <SearchItem<{ [key in typeof screen]: key extends 'characters' ? 'character' : 'episode' }[typeof screen]> results={item} />
 
-  const resultText = () => `Encontramos ${data && data[screen].info.count} personagens para o termo: ${search}`;
-
+  const resultText = () =>
+    `Encontramos ${data && data[screen].info.count || 0} ${screen === 'characters' ? 'personagem' : 'episódio'} para o termo: ${search}`;
 
   return (
     <Container>
@@ -66,11 +70,18 @@ function SearchScreen({ route }: SearchScreenProps) {
         placeholder={`Digite o nome de um ${getScreenName(screen)}`}
       />
 
+      <LoadingWrapp>
+        {loading ?
+          (<ImageLoading source={LoadingRick} />) : search.length < 3 ? (
+            <>
+              <TextWait>Pesquise por algo no botão acima!</TextWait>
+              <ImageWait source={WaitRick} />
+            </>
+          ) : (<></>)
+        }
+      </LoadingWrapp>
 
-      {loading &&
-        <ActivityIndicator size="large" color="#00b5cc" />
-      }
-      {data && data[screen] &&
+      {search.length > 2 && data && data[screen] &&
         (<>
           <Text>{resultText()}</Text>
           <FlatList data={data[screen].results} keyExtractor={keyExtractor} renderItem={renderItem} />
