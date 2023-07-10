@@ -1,5 +1,7 @@
 import styled from 'styled-components/native';
 
+export const ScrollView =styled.ScrollView``;
+
 export const Container = styled.View`
   flex: 1;
   display: flex;
@@ -14,3 +16,9 @@ export const SearchInput = styled.TextInput`
   height: 60px;
   border-radius: 8px;
 `
+export const Text = styled.Text`
+  color: ${({theme}) => theme.colors.white};
+  font-size: 16px;
+  font-weight: ${({theme}) => theme.fonts.weight.bold};
+  margin: 8px;
+`;

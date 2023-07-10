@@ -1,6 +1,9 @@
-import { gql } from '@apollo/client';
+import { gql, TypedDocumentNode } from '@apollo/client';
 
-export const GET_EPISODES = gql`
+import type { Episodes } from '../types/Episode';
+import type { Filter } from '../types/Character';
+
+export const GET_EPISODES: TypedDocumentNode<Episodes, Filter> = gql`
   query Episodes($name: String){
     episodes(filter: { name: $name }) {
       info {

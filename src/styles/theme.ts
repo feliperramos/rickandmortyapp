@@ -10,6 +10,7 @@ const theme = {
     },
     secondary: {
       100: '#d6ff26',
+      200: '#00b5cc'
     },
     dark_surface: {
       100: '#121212',

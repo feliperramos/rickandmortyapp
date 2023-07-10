@@ -11,8 +11,8 @@ type HomeScreenProps = StackNavigationProp<RootStackList, "Home">;
 function Home() {
   const { navigate } = useNavigation<HomeScreenProps>();
 
-  const goToCharacterScreen = () => navigate("SearchScreen", { screen: 'character' });
-  const goToEpisodeScreen = () => navigate("SearchScreen", { screen: 'episode' });
+  const goToCharacterScreen = () => navigate("SearchScreen", { screen: 'characters' });
+  const goToEpisodeScreen = () => navigate("SearchScreen", { screen: 'episodes' });
 
   return (
     <Container>
